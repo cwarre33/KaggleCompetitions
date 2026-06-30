@@ -1,0 +1,7 @@
+slug: unknown_competition
+data_dir: /kaggle/input/unknown_competition
+id_col: id
+target_col: target
+metric: roc_auc
+problem_type: classification  # classification | regression
+

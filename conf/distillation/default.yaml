@@ -1,0 +1,5 @@
+# Default distillation settings
+enabled: false
+temperature: 1.0
+alpha: 0.5
+teacher_checkpoint: null  # Path to teacher model checkpoint

@@ -1,0 +1,7 @@
+slug: playground-series-s6e2
+data_dir: /kaggle/input/playground-series-s6e2
+id_col: id
+target_col: "Heart Disease"
+metric: roc_auc
+problem_type: classification
+

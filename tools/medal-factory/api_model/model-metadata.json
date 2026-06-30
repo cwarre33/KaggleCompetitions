@@ -1,0 +1,11 @@
+{
+  "id": 603117,
+  "ownerSlug": "cameronwarrennn",
+  "slug": "api-model-creator-badge",
+  "title": "API Model Creator Badge",
+  "subtitle": "Minimal model created via Kaggle API for the API Model Creator badge.",
+  "isPrivate": false,
+  "description": "## Overview\nModel created using the Kaggle API to earn the [API Model Creator](https://www.kaggle.com/progression/badges) badge. \n\nDone via API (badges should already be live)\nAPI Model Creator and Model Variation Creator were earned by running:\nModel: kaggle.com/models/cameronwarrennn/api-model-creator-badge\nVariation 1: PyTorch / pytorch-small\nVariation 2: PyTorch / pytorch-large\nSo you already have:\nAPI Model Creator (created a model via the Kaggle API)\nModel Variation Creator (same model with two variations)",
+  "publishTime": null,
+  "provenanceSources": "Created via Kaggle API for the API Model Creator badge. Minimal demo model."
+}

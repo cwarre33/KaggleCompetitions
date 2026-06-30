@@ -1,0 +1,10 @@
+slug: playground-series-s6e6
+data_dir: data/playground-series-s6e6
+id_col: id
+target_col: class
+metric: balanced_accuracy
+problem_type: multiclass
+classes:
+  - GALAXY
+  - QSO
+  - STAR

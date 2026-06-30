@@ -1,0 +1,10 @@
+{
+  "id": "cameronwarrennn/dataset-pipeline-creator-badge",
+  "title": "Dataset Pipeline Creator badge",
+  "code_file": "dataset-pipeline-creator-badge.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true
+}

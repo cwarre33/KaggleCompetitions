@@ -1,0 +1,10 @@
+{
+  "id": "cameronwarrennn/api-notebook-creator-badge",
+  "title": "API Notebook Creator badge",
+  "code_file": "api-notebook-creator-badge.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true
+}

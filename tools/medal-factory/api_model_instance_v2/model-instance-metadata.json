@@ -1,0 +1,17 @@
+{
+  "id": 590785,
+  "ownerSlug": "cameronwarrennn",
+  "modelSlug": "api-model-creator-badge",
+  "instanceSlug": "pytorch-large",
+  "framework": "py_torch",
+  "overview": "Large variation. Same model, second variation for Model Variation Creator badge.",
+  "usage": "Load from Kaggle Model Hub. Second variation. Model Pipeline Creator is earned by creating a model from a notebook\u2019s output on Kaggle.\nOpen the notebook: kaggle.com/code/cameronwarrennn/model-pipeline-creator-badge\nClick Run All so it writes model.pkl and README.txt to /kaggle/working/.\nIn the right-hand panel, open the Output (or Data) tab.\nUse \u201cCreate model from notebook output\u201d (or \u201cNew model from output\u201d) and complete the form to create a model from this run\u2019s output.\nAfter the model is created from the notebook output, the Model Pipeline Creator badge should appear.",
+  "licenseName": "Apache 2.0",
+  "fineTunable": false,
+  "trainingData": ["Synthetic/demo data for badge documentation"],
+  "versionId": 773593,
+  "versionNumber": 1,
+  "modelInstanceType": "KaggleVariant",
+  "baseModelInstance": "cameronwarrennn/api-model-creator-badge/py_torch/pytorch-small",
+  "externalBaseModelUrl": ""
+}

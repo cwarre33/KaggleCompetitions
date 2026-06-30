@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mai-harness"
+version = "0.1.0"
+description = "Reusable harness for Kaggle competitions (sklearn + PyTorch) with Hydra config."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "hydra-core>=1.3.2",
+  "omegaconf>=2.3.0",
+  "PyYAML>=6.0.1",
+  "numpy>=1.24.0",
+  "pandas>=2.0.0",
+  "scikit-learn>=1.3.0",
+  "torch>=2.0.0",
+  "joblib>=1.3.0",
+]
+
+[project.scripts]
+kaggle-harness = "harness.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["harness*"]
+

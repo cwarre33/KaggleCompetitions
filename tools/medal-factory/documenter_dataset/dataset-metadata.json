@@ -1,0 +1,41 @@
+{
+  "title": "Dataset Documenter Badge Example",
+  "subtitle": "Tabular example with full documentation for usability rating 10.",
+  "id": "cameronwarrennn/dataset-documenter-badge",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "description": "## Overview\nThis is a minimal, fully documented dataset created to earn the **Dataset Documenter** badge (perfect usability rating of 10).\n\n## Contents\n- **sample_data.csv**: Small table with three columns (id, value, label).\n\n## Usage\nSuitable for testing pipelines, tutorials, or as a template for documenting your own datasets. Load with pandas: `pd.read_csv('sample_data.csv')`.\n\n## Provenance\nSynthetic data generated for Kaggle badge documentation. No real-world source.",
+  "keywords": [
+    "tabular",
+    "tutorial",
+    "beginner"
+  ],
+  "resources": [
+    {
+      "path": "sample_data.csv",
+      "description": "Main data file: 5 rows, 3 columns. CSV format, UTF-8 encoded. Contains integer id, decimal value, and categorical label.",
+      "schema": {
+        "fields": [
+          {
+            "name": "id",
+            "title": "Row identifier; unique integer from 1 to 5.",
+            "type": "integer"
+          },
+          {
+            "name": "value",
+            "title": "Numeric value; example decimal values for demonstration.",
+            "type": "decimal"
+          },
+          {
+            "name": "label",
+            "title": "Category label; either A or B.",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

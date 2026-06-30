@@ -1,0 +1,6 @@
+# Default augmentation settings
+enabled: true
+noise_profile: null  # e.g., "call_center", "urban_street", etc.
+modality: acoustic  # acoustic, visual, or logic
+# Augmentation parameters that can be overridden per augmentation type
+params: {}

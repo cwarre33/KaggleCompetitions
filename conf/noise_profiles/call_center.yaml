@@ -1,0 +1,18 @@
+# Call Center Noise Profile
+# Simulates acoustic environment of a call center with various degradations
+
+augmentations:
+  codec_distortion:
+    enabled: true
+    params:
+      bitrate: 64.0  # Low bitrate codec simulation
+  
+  background_babble:
+    enabled: true
+    params:
+      snr_db: 15.0  # Background babble at 15 dB SNR
+  
+  rir:
+    enabled: true
+    params:
+      reverberance: 0.4  # Moderate reverberation

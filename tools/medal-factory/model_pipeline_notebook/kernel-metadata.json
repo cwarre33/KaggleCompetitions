@@ -1,0 +1,10 @@
+{
+  "id": "cameronwarrennn/model-pipeline-creator-badge",
+  "title": "Model Pipeline Creator badge",
+  "code_file": "model-pipeline-creator-badge.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true
+}

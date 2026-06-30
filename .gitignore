@@ -7,3 +7,15 @@ __pycache__/
 data/raw/*.csv
 submissions/*.csv
 .claude/
+# March Mania 2026 - data and outputs are large
+MarchMania2026/data/
+MarchMania2026/output/
+
+# Playground Series S6E6 - large competition/extra data and run artifacts
+data/playground-series-s6e6/
+data/sdss17/
+data/ridge_flip_corpus/
+catboost_info/
+runs/
+.claw-todos.json
+.claw/

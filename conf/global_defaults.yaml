@@ -1,0 +1,65 @@
+# Global defaults for the MAI-Harness
+# This file contains harness-wide settings that apply to all competitions
+
+defaults:
+  - _self_
+  - paths: base
+  - cv: base
+  - model: base
+  - competition: base
+  - augmentation: default
+  - distillation: default
+  - optimizer: adam
+  - scheduler: none
+  - trainer: base
+
+# Harness-wide settings
+harness:
+  name: mai_harness
+  version: 0.1.0
+  device: auto  # Will use cuda if available, else cpu
+  seed: 42
+  mixed_precision: true
+  compile_model: true  # Use torch.compile for 20%+ speedup
+  gradient_clip_val: 1.0
+  log_every_n_steps: 50
+  val_check_interval: 1.0  # How often to check validation (epochs or fraction)
+
+# Augmentation defaults
+augmentation:
+  enabled: true
+  noise_profile: null  # Set per competition
+  modality: acoustic  # acoustic, visual, or logic
+
+# Distillation defaults
+distillation:
+  enabled: false
+  temperature: 1.0
+  alpha: 0.5
+  teacher_checkpoint: null  # Path to teacher model if using distillation
+
+# Optimizer defaults
+optimizer:
+  type: adam
+  lr: 0.001
+  weight_decay: 0.0001
+
+# Scheduler defaults
+scheduler:
+  type: none  # Options: none, step, cosine, plateau
+  step_size: 10
+  gamma: 0.1
+  T_max: 10
+  mode: min
+  factor: 0.5
+  patience: 5
+
+# Trainer defaults
+trainer:
+  max_epochs: 100
+  accelerator: auto
+  devices: 1
+  precision: 16  # If mixed_precision is true
+  accumulate_grad_batches: 1
+  enable_progress_bar: true
+  enable_model_summary: true
