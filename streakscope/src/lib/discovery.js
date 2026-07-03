@@ -261,6 +261,73 @@ export async function enrichTradersProgressive(seeds, logDiag, ignoreFavorites, 
   }
 }
 
+export function buildGameBoard(traders, minStreak = 3) {
+  const streakers = traders.filter((t) => t.streakType === "W" && t.streak >= minStreak);
+  const games = new Map();
+
+  for (const t of streakers) {
+    for (const b of t.activeBets || []) {
+      const eventKey = b.eventSlug || b.conditionId;
+      if (!eventKey) continue;
+
+      const game = games.get(eventKey) || {
+        eventSlug: b.eventSlug,
+        eventKey,
+        title: gameTitleFromBet(b),
+        live: false,
+        gameStartTime: b.gameStartTime,
+        positions: new Map(),
+        streakers: new Set(),
+      };
+      game.live = game.live || b.live;
+      if (b.gameStartTime && !game.gameStartTime) game.gameStartTime = b.gameStartTime;
+      game.streakers.add(t.wallet);
+
+      const posKey = `${b.conditionId}:${b.outcomeIndex}`;
+      const pos = game.positions.get(posKey) || {
+        conditionId: b.conditionId,
+        title: b.title,
+        outcome: b.outcome,
+        sportsMarketType: b.sportsMarketType,
+        live: false,
+        polymarketUrl: b.polymarketUrl || (b.eventSlug ? `https://polymarket.com/event/${b.eventSlug}` : null),
+        traders: [],
+      };
+      pos.live = pos.live || b.live;
+      pos.traders.push({
+        wallet: t.wallet,
+        name: t.name,
+        streak: t.streak,
+        entry: b.avgPrice,
+        now: b.curPrice,
+        pnl: b.cashPnl,
+        value: b.currentValue,
+        size: b.size,
+        live: b.live,
+      });
+      game.positions.set(posKey, pos);
+      games.set(eventKey, game);
+    }
+  }
+
+  return [...games.values()]
+    .map((g) => ({
+      ...g,
+      streakerCount: g.streakers.size,
+      positions: [...g.positions.values()].sort((a, b) => (b.live ? 1 : 0) - (a.live ? 1 : 0) || b.traders.length - a.traders.length),
+      positionCount: g.positions.size,
+    }))
+    .sort((a, b) => (b.live ? 1 : 0) - (a.live ? 1 : 0) || b.streakerCount - a.streakerCount || b.positionCount - a.positionCount);
+}
+
+function gameTitleFromBet(b) {
+  const t = b.title || "";
+  const colon = t.indexOf(":");
+  if (colon > 0) return t.slice(0, colon).trim();
+  if (b.eventSlug) return b.eventSlug.replace(/-/g, " ");
+  return t || "Unknown game";
+}
+
 export function computeKpis(traders, meta = {}) {
   const liveTraders = traders.filter((t) => t.liveCount > 0);
   const liveBets = traders.reduce((s, t) => s + (t.liveCount ?? 0), 0);
