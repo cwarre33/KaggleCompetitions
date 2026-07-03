@@ -12,12 +12,14 @@ import {
 } from "./lib/discovery.js";
 import { computeTraderStats } from "./lib/sports.js";
 import { useStreakerAlerts } from "./hooks/useStreakerAlerts.js";
+import { useSimLoop } from "./hooks/useSimLoop.js";
 import { ALERT_WINDOW_MS } from "./lib/alerts.js";
 
 const PAGES = [
   { id: "live", label: "Live" },
   { id: "games", label: "Games" },
   { id: "streaks", label: "Streaks" },
+  { id: "sim", label: "Sim" },
   { id: "alerts", label: "Alerts" },
   { id: "search", label: "Search" },
 ];
@@ -348,6 +350,128 @@ function AlertsPage({
   );
 }
 
+function SimTrialCard({ trial, isWinner }) {
+  const m = trial.metrics;
+  const label = trial.sustained ? "SUSTAINED" : trial.endReason === "stop_loss" ? "STOP LOSS" : "TRIAL";
+  const border = isWinner ? COLORS.win : trial.endReason === "stop_loss" ? COLORS.loss : COLORS.border;
+
+  return (
+    <div style={{ background: COLORS.card, border: `1px solid ${border}`, borderRadius: 10, padding: 12, marginBottom: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
+        <span style={{ fontSize: 10, fontWeight: 700, color: isWinner ? COLORS.win : trial.endReason === "stop_loss" ? COLORS.loss : COLORS.muted }}>
+          TRIAL {trial.trialNum} · {label}
+        </span>
+        <span style={{ fontFamily: "monospace", fontWeight: 700, color: m.totalPnl >= 0 ? COLORS.win : COLORS.loss }}>
+          {m.totalPnl >= 0 ? "+" : ""}{fmtUsd(m.totalPnl)}
+        </span>
+      </div>
+      <div style={{ fontSize: 11, color: COLORS.muted, fontFamily: "monospace", marginBottom: 8 }}>
+        {trial.strategy.pickMode} · streak≥{trial.strategy.minStreak} · hit≥{fmtPct(trial.strategy.minHitRate)}
+        {" · "}{fmtPrice(trial.strategy.minEntryPrice)}–{fmtPrice(trial.strategy.maxEntryPrice)}
+        {trial.strategy.requireConsensus && ` · consensus≥${trial.strategy.minConsensus}`}
+        {" · "}${trial.strategy.stakeUsd}/bet
+      </div>
+      <div style={{ fontSize: 11, fontFamily: "monospace", color: COLORS.text }}>
+        {m.bets} bets · {m.wins}W–{m.losses}L ({fmtPct(m.winRate)}) · peak {fmtUsd(m.peak)}
+      </div>
+      {trial.picks.length > 0 && (
+        <div style={{ marginTop: 8, fontSize: 10, color: COLORS.muted }}>
+          Last: {trial.picks.slice(-3).map((p) => `${p.win ? "W" : "L"} ${(p.title || "").slice(0, 28)}`).join(" · ")}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SimPage({
+  loading, tradersCount, running, result, config, updateConfig, onRun, onExport, markdown,
+}) {
+  const inputStyle = {
+    width: 72, padding: "6px 8px", borderRadius: 6, border: `1px solid ${COLORS.border}`,
+    background: COLORS.bg, color: COLORS.text, fontSize: 12, fontFamily: "monospace",
+  };
+
+  return (
+    <>
+      <PageHeader
+        title="Sim Trader"
+        desc="Backtest copy-trading streakers on resolved bets. Stop on loss, mutate strategy, repeat until profit holds."
+      />
+      {loading && <Empty>Waiting for trader data…</Empty>}
+      {!loading && (
+        <>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
+            <label style={{ fontSize: 11, color: COLORS.muted }}>
+              Stop loss ($)
+              <input type="number" value={config.stopLossUsd} min={10} max={500} step={10}
+                onChange={(e) => updateConfig({ stopLossUsd: Number(e.target.value) })}
+                style={{ ...inputStyle, width: "100%", marginTop: 4 }} />
+            </label>
+            <label style={{ fontSize: 11, color: COLORS.muted }}>
+              Profit target ($)
+              <input type="number" value={config.profitTargetUsd} min={10} max={500} step={10}
+                onChange={(e) => updateConfig({ profitTargetUsd: Number(e.target.value) })}
+                style={{ ...inputStyle, width: "100%", marginTop: 4 }} />
+            </label>
+            <label style={{ fontSize: 11, color: COLORS.muted }}>
+              Stake / bet ($)
+              <input type="number" value={config.stakeUsd} min={5} max={100} step={5}
+                onChange={(e) => updateConfig({ stakeUsd: Number(e.target.value) })}
+                style={{ ...inputStyle, width: "100%", marginTop: 4 }} />
+            </label>
+            <label style={{ fontSize: 11, color: COLORS.muted }}>
+              Max trials
+              <input type="number" value={config.maxTrials} min={3} max={50} step={1}
+                onChange={(e) => updateConfig({ maxTrials: Number(e.target.value) })}
+                style={{ ...inputStyle, width: "100%", marginTop: 4 }} />
+            </label>
+          </div>
+          <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+            <button type="button" onClick={onRun} disabled={running || tradersCount === 0}
+              style={{ padding: "10px 16px", borderRadius: 8, border: `1px solid ${COLORS.win}`, background: "rgba(61,220,151,0.1)", color: COLORS.win, fontSize: 13, cursor: "pointer", opacity: running ? 0.5 : 1 }}>
+              {running ? "Running loop…" : "Run strategy loop"}
+            </button>
+            {markdown && (
+              <button type="button" onClick={onExport}
+                style={{ padding: "10px 16px", borderRadius: 8, border: `1px solid ${COLORS.accent}`, background: "rgba(108,140,255,0.1)", color: COLORS.accent, fontSize: 13, cursor: "pointer" }}>
+                Download .md log
+              </button>
+            )}
+          </div>
+          <p style={{ fontSize: 11, color: COLORS.muted, margin: "0 0 12px", fontFamily: "monospace" }}>
+            {tradersCount} traders · {config.minBetsForSuccess}+ bets to qualify · uses closed sports positions
+          </p>
+          {result?.winner && (
+            <div style={{ padding: 12, marginBottom: 12, borderRadius: 8, border: `1px solid ${COLORS.win}`, background: "rgba(61,220,151,0.08)" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.win }}>Sustained profit found — Trial {result.winner.trialNum}</div>
+              <div style={{ fontSize: 11, marginTop: 4, fontFamily: "monospace", color: COLORS.muted }}>
+                +{fmtUsd(result.winner.metrics.totalPnl)} over {result.winner.metrics.bets} bets ({fmtPct(result.winner.metrics.winRate)} WR)
+              </div>
+            </div>
+          )}
+          {result && !result.winner && (
+            <div style={{ padding: 12, marginBottom: 12, borderRadius: 8, border: `1px solid ${COLORS.streakLow}`, background: "rgba(217,164,65,0.08)" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.streakLow }}>No sustained winner in {result.trials.length} trials</div>
+              <div style={{ fontSize: 11, marginTop: 4, color: COLORS.muted }}>Download the log to review each attempt and tweak.</div>
+            </div>
+          )}
+          {result?.trials.map((t) => (
+            <SimTrialCard key={t.trialNum} trial={t} isWinner={result.winner?.trialNum === t.trialNum} />
+          ))}
+          {markdown && (
+            <details style={{ marginTop: 12 }}>
+              <summary style={{ fontSize: 12, color: COLORS.muted, cursor: "pointer" }}>Raw markdown log</summary>
+              <pre style={{ marginTop: 8, padding: 12, background: COLORS.card, borderRadius: 8, fontSize: 10, overflow: "auto", maxHeight: 240, color: COLORS.muted, whiteSpace: "pre-wrap" }}>
+                {markdown}
+              </pre>
+            </details>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
 function SearchPage({ searchQuery, setSearchQuery, onSearch, searchResult, expanded, onToggle, reducedMotion }) {
   return (
     <>
@@ -439,6 +563,8 @@ export default function StreakScopeSports() {
   const { alerts, unread, watching, dismissAlert, clearAlerts, requestPermission, markRead } = useStreakerAlerts({
     traders, logDiag, enabled: alertsEnabled && !loading, browserNotify,
   });
+
+  const sim = useSimLoop({ traders, ignoreFavorites });
 
   const goPage = (id) => {
     setPage(id);
@@ -541,6 +667,19 @@ export default function StreakScopeSports() {
             traders={traders} expanded={expanded} onToggle={setExpanded} reducedMotion={reducedMotion} loading={loading}
             ignoreFavorites={ignoreFavorites} setIgnoreFavorites={setIgnoreFavorites}
             winOnly={winOnly} setWinOnly={setWinOnly}
+          />
+        )}
+        {page === "sim" && (
+          <SimPage
+            loading={loading}
+            tradersCount={traders.length}
+            running={sim.running}
+            result={sim.result}
+            config={sim.config}
+            updateConfig={sim.updateConfig}
+            onRun={sim.run}
+            onExport={sim.exportLog}
+            markdown={sim.markdown}
           />
         )}
         {page === "alerts" && (
