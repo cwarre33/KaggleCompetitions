@@ -2,7 +2,7 @@ name: Deploy StreakScope
 
 on:
   push:
-    branches: [main, cursor/streakscope-app-0bb4]
+    branches: [main]
     paths:
       - "streakscope/**"
       - ".github/workflows/deploy-streakscope.yml"
@@ -16,11 +16,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: streakscope-pages-${{ github.ref }}
+  group: streakscope-pages
   cancel-in-progress: true
 
+# GitHub Pages legacy source for this repo (Settings → Pages).
 env:
-  IS_DEPLOY_BRANCH: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cursor/streakscope-app-0bb4') }}
+  PAGES_BRANCH: cursor/streakscope-app-0bb4
 
 jobs:
   build:
@@ -28,6 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: true
 
       - uses: actions/setup-node@v4
@@ -42,8 +44,8 @@ jobs:
           npm ci
           npm run build
 
-      - name: Publish static site for legacy Pages
-        if: env.IS_DEPLOY_BRANCH == 'true'
+      - name: Stage static site artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           rm -rf docs
           cp -r streakscope/dist docs
@@ -51,11 +53,24 @@ jobs:
           cp -r streakscope/dist/* .
           touch .nojekyll
 
-      - name: Commit static site for legacy Pages
-        if: env.IS_DEPLOY_BRANCH == 'true'
+      - name: Commit static site to main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs .nojekyll index.html assets favicon.svg icons.svg
           git diff --staged --quiet || git commit -m "Deploy StreakScope static site"
           git push
+
+      - name: Sync static site to GitHub Pages branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          tar czf /tmp/site.tgz docs index.html assets favicon.svg icons.svg .nojekyll
+          git fetch origin "${PAGES_BRANCH}"
+          git checkout "origin/${PAGES_BRANCH}" -b pages-deploy
+          tar xzf /tmp/site.tgz
+          git add docs index.html assets favicon.svg icons.svg .nojekyll
+          git diff --staged --quiet || git commit -m "Deploy StreakScope static site from main"
+          git push origin pages-deploy:"${PAGES_BRANCH}"
