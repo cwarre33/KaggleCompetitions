@@ -11,6 +11,8 @@ import {
   INITIAL_ENRICH,
 } from "./lib/discovery.js";
 import { computeTraderStats } from "./lib/sports.js";
+import { useStreakerAlerts } from "./hooks/useStreakerAlerts.js";
+import { ALERT_WINDOW_MS } from "./lib/alerts.js";
 
 function WLStrip({ last20 }) {
   if (!last20?.length) return <span style={{ color: COLORS.muted, fontSize: 11 }}>no data</span>;
@@ -208,6 +210,90 @@ function TraderRow({ t, expanded, onToggle, liveOnly, reducedMotion }) {
   );
 }
 
+function AlertCard({ alert, onDismiss, reducedMotion }) {
+  const url = alert.eventSlug ? `https://polymarket.com/event/${alert.eventSlug}` : null;
+  const spanMin = Math.round(ALERT_WINDOW_MS / 60000);
+
+  return (
+    <div
+      style={{
+        background: "rgba(255,75,46,0.08)",
+        border: `1px solid ${COLORS.streakHigh}`,
+        borderRadius: 10,
+        padding: 12,
+        marginBottom: 8,
+        animation: reducedMotion ? "none" : "alertPop 0.35s ease-out",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: COLORS.streakHigh, letterSpacing: "0.04em", marginBottom: 4 }}>
+            🔔 STREAKERS SAME PLAY · {spanMin}min window
+          </div>
+          {url ? (
+            <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.text, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+              {alert.title}
+            </a>
+          ) : (
+            <div style={{ fontWeight: 600, fontSize: 14 }}>{alert.title}</div>
+          )}
+          <div style={{ fontSize: 11, color: COLORS.accent, marginTop: 4, fontFamily: "monospace" }}>{alert.outcome}</div>
+        </div>
+        <button
+          type="button"
+          onClick={() => onDismiss(alert.id)}
+          style={{ background: "transparent", border: "none", color: COLORS.muted, cursor: "pointer", fontSize: 16 }}
+          aria-label="Dismiss alert"
+        >
+          ×
+        </button>
+      </div>
+      <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 6 }}>
+        {alert.traders.map((t) => (
+          <div key={t.wallet} style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontFamily: "monospace" }}>
+            <a href={profileUrl(t.wallet)} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.text, textDecoration: "none" }}>
+              <span style={{ color: streakColor(t.streak, COLORS), fontWeight: 700 }}>{t.streak}W</span> {t.name || shortWallet(t.wallet)}
+            </a>
+            <span style={{ color: COLORS.muted }}>
+              {new Date(t.at).toLocaleTimeString()} · {fmtPrice(t.price)} · {fmtUsd(t.cash)}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AlertBanner({ unread, watching, lastPoll, onOpen }) {
+  if (unread === 0) return null;
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      style={{
+        width: "100%",
+        marginBottom: 10,
+        padding: "10px 14px",
+        borderRadius: 8,
+        border: `1px solid ${COLORS.streakHigh}`,
+        background: "rgba(255,75,46,0.12)",
+        color: COLORS.text,
+        cursor: "pointer",
+        textAlign: "left",
+        fontSize: 13,
+      }}
+    >
+      <span style={{ color: COLORS.streakHigh, fontWeight: 700 }}>{unread} new alert{unread > 1 ? "s" : ""}</span>
+      <span style={{ color: COLORS.muted }}> — streakers placed the same bet within 5 min · watching {watching}</span>
+      {lastPoll && (
+        <span style={{ float: "right", fontSize: 10, color: COLORS.muted, fontFamily: "monospace" }}>
+          polled {new Date(lastPoll).toLocaleTimeString()}
+        </span>
+      )}
+    </button>
+  );
+}
+
 function SamePlaySection({ groups }) {
   if (!groups?.length) return null;
   return (
@@ -255,6 +341,9 @@ export default function StreakScopeSports() {
   const [scanProgress, setScanProgress] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
+  const [alertsEnabled, setAlertsEnabled] = useState(true);
+  const [browserNotify, setBrowserNotify] = useState(false);
+  const [showAlerts, setShowAlerts] = useState(true);
   const abortRef = useRef(null);
   const metaRef = useRef({});
 
@@ -318,6 +407,27 @@ export default function StreakScopeSports() {
       return { ...t, ...stats };
     });
   }, [rawTraders, ignoreFavorites]);
+
+  const {
+    alerts: streakAlerts,
+    unread: alertUnread,
+    watching: alertWatching,
+    lastPoll: alertLastPoll,
+    markRead: markAlertsRead,
+    dismissAlert,
+    clearAlerts,
+    requestPermission,
+  } = useStreakerAlerts({
+    traders,
+    logDiag,
+    enabled: alertsEnabled && !loading,
+    browserNotify,
+  });
+
+  const enableBrowserNotify = async () => {
+    const perm = await requestPermission();
+    setBrowserNotify(perm === "granted");
+  };
 
   const pulseTraders = useMemo(() => {
     const ids = new Set();
@@ -391,6 +501,7 @@ export default function StreakScopeSports() {
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "'Inter', system-ui, sans-serif", padding: "12px 12px 80px", maxWidth: 960, margin: "0 auto" }}>
       <style>{`
         @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+        @keyframes alertPop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
         * { box-sizing: border-box; }
         a:hover { text-decoration: underline !important; }
         button:focus-visible { outline: 2px solid ${COLORS.win}; outline-offset: 2px; }
@@ -422,11 +533,33 @@ export default function StreakScopeSports() {
           <button type="button" style={toggleStyle(winStreaksOnly)} onClick={() => setWinStreaksOnly((v) => !v)}>Win streaks only</button>
           <button type="button" style={toggleStyle(ignoreFavorites)} onClick={() => setIgnoreFavorites((v) => !v)}>Ignore &gt;95¢ favorites</button>
           <button type="button" style={toggleStyle(liveOnly)} onClick={() => setLiveOnly((v) => !v)}>Live games only</button>
+          <button
+            type="button"
+            style={toggleStyle(alertsEnabled)}
+            onClick={() => setAlertsEnabled((v) => !v)}
+          >
+            🔔 Streak alerts{alertWatching > 0 ? ` (${alertWatching})` : ""}
+            {alertUnread > 0 ? ` · ${alertUnread}` : ""}
+          </button>
+          <button
+            type="button"
+            style={toggleStyle(browserNotify)}
+            onClick={browserNotify ? () => setBrowserNotify(false) : enableBrowserNotify}
+          >
+            {browserNotify ? "Browser notify on" : "Enable browser notify"}
+          </button>
         </div>
 
         {scanProgress && (
           <p style={{ fontSize: 11, color: COLORS.muted, margin: "8px 0 0", fontFamily: "monospace" }}>{scanProgress}</p>
         )}
+
+        <AlertBanner
+          unread={alertUnread}
+          watching={alertWatching}
+          lastPoll={alertLastPoll}
+          onOpen={() => { setShowAlerts(true); markAlertsRead(); }}
+        />
       </header>
 
       {view === "search" && (
@@ -454,6 +587,17 @@ export default function StreakScopeSports() {
 
       {view === "pulse" && (
         <>
+          {showAlerts && streakAlerts.length > 0 && (
+            <section style={{ marginBottom: 16 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <h2 style={{ fontSize: 14, margin: 0, color: COLORS.streakHigh }}>🔔 Live Streaker Alerts</h2>
+                <button type="button" onClick={clearAlerts} style={{ ...toggleStyle(false), fontSize: 10 }}>Clear all</button>
+              </div>
+              {streakAlerts.map((a) => (
+                <AlertCard key={a.id} alert={a} onDismiss={dismissAlert} reducedMotion={reducedMotion} />
+              ))}
+            </section>
+          )}
           <SamePlaySection groups={kpis.samePlay} />
           {kpis.hotStreaks?.length > 0 && (
             <section style={{ marginBottom: 12 }}>
