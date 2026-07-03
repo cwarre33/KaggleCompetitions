@@ -14,8 +14,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: streakscope-pages-${{ github.ref }}
@@ -61,20 +59,3 @@ jobs:
           git add docs .nojekyll index.html assets favicon.svg icons.svg
           git diff --staged --quiet || git commit -m "Deploy StreakScope static site"
           git push
-
-      - name: Upload Pages artifact
-        if: env.IS_DEPLOY_BRANCH == 'true'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: streakscope/dist
-
-  deploy:
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cursor/streakscope-app-0bb4')
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
