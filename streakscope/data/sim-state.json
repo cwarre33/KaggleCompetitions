@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-03T19:21:05.976Z",
-  "heartbeatCount": 5,
-  "lastTradePollAt": "2026-07-03T19:21:05.976Z",
+  "updatedAt": "2026-07-03T20:38:37.367Z",
+  "heartbeatCount": 6,
+  "lastTradePollAt": "2026-07-03T20:38:37.367Z",
   "config": {
     "stopLossUsd": 50,
     "profitTargetUsd": 40,
@@ -27,9 +27,9 @@
     "status": "active",
     "startedAt": "2026-07-03T14:30:00.000Z",
     "endedAt": null,
-    "realizedPnl": 37.76349273013174,
-    "unrealizedPnl": -12.065492533713616,
-    "peak": 25.69800019641812,
+    "realizedPnl": 57.17525864708681,
+    "unrealizedPnl": -15.757829371172392,
+    "peak": 41.417429275914415,
     "openPicks": [
       {
         "id": "0x2d7ea501b1b149d1b5062d29e4e486abf6c0490d29ea4f59553d72690a525af2:0x204f72f35326db932158cba6adff0b9a1da95e14:0xdc6d6e8b7436863baec6c226eddc8aa51b1d64c1831322469eb344248b131ef0:1783089146",
@@ -62,8 +62,8 @@
         "hitRate": 1,
         "entry": 0.67,
         "stake": 10,
-        "curPrice": 0.665,
-        "unrealizedPnl": -0.07462686567164134
+        "curPrice": 0.675,
+        "unrealizedPnl": 0.07462686567164134
       },
       {
         "id": "0xe33b46e588f2cc8f2b998f838b59adbb72c10bd680e70fadca92b358f8df1cd7:0x204f72f35326db932158cba6adff0b9a1da95e14:0x081291a0366264baf9f644e8b2ddeaca18954628e6b63b4edac23d04977bd61f:1783091072",
@@ -96,8 +96,8 @@
         "hitRate": 1,
         "entry": 0.5,
         "stake": 10,
-        "curPrice": 0.485,
-        "unrealizedPnl": -0.3000000000000007
+        "curPrice": 0.475,
+        "unrealizedPnl": -0.5
       },
       {
         "id": "0xee6cdd1511ce34b75b86ac48ec6dc12aa187706713a811df51d7f30cc58beb13:0x032eb1bc893940263ad0b01889f262fc232f2a9e:0xcdc6121950d67a39bb033f134ba9fcc1a6d74d92f9fa1738ca6f998ca7bf1e45:1783091072",
@@ -113,8 +113,8 @@
         "hitRate": 1,
         "entry": 0.54,
         "stake": 10,
-        "curPrice": 0.46499999999999997,
-        "unrealizedPnl": -1.3888888888888893
+        "curPrice": 0.435,
+        "unrealizedPnl": -1.9444444444444446
       },
       {
         "id": "0x755318a8ac6df84b52901457a381ac129b82035c8b98ad4d6bb9dda7f2a1a1e2:0x84cfffc3f16dcc353094de30d4a45226eccd2f63:0x9ad06dd68a4075ba2ac99fc138f7c1506f236851233b0ec79a130a348af19a82:1783095160",
@@ -130,25 +130,8 @@
         "hitRate": 1,
         "entry": 0.6,
         "stake": 10,
-        "curPrice": 0.425,
-        "unrealizedPnl": -2.916666666666666
-      },
-      {
-        "id": "0xec8e92d7421a02c7b7c39ee1a85c08386fd6f73a6db92df3b232018e060ef585:0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6:0x71b9be2e4558d3581e1023a0e0568a7a49fcca8c7f1ba1d1ca73fa1deb05e76f:1783095160",
-        "openedAt": "2026-07-03T16:12:40.000Z",
-        "title": "Will Australia vs. Egypt end in a draw?",
-        "outcome": "Yes",
-        "conditionId": "0x71b9be2e4558d3581e1023a0e0568a7a49fcca8c7f1ba1d1ca73fa1deb05e76f",
-        "outcomeIndex": 999,
-        "eventSlug": "",
-        "trader": "suntori",
-        "wallet": "0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6",
-        "streak": 50,
-        "hitRate": 1,
-        "entry": 0.339999986,
-        "stake": 10,
         "curPrice": 0.495,
-        "unrealizedPnl": 4.558824128892759
+        "unrealizedPnl": -1.75
       },
       {
         "id": "0xff02208aa6864d84eae2c28ed5f8ddeaf515c9382bf5871310bcbbbea49f94e3:0x2d6ac4f70307102ac46e9e6ded67f3838ddf8add:0xf711a2c0a9e6e4bfc91b5e21b365d282227b67fdea3b64b0edecb21d7bcc713c:1783095160",
@@ -164,8 +147,8 @@
         "hitRate": 1,
         "entry": 0.49,
         "stake": 10,
-        "curPrice": 0.495,
-        "unrealizedPnl": 0.1020408163265305
+        "curPrice": 0.51,
+        "unrealizedPnl": 0.408163265306122
       },
       {
         "id": "0x6086e845833052d6784bc1491d0a3945b0ee1640489f8907951a886b69bd8a02:0x204f72f35326db932158cba6adff0b9a1da95e14:0x157a31b91f1c063306a4486cc20b0644d2441aeed4587847ba87926c7646ce6d:1783095160",
@@ -375,6 +358,27 @@
         "win": false,
         "pnl": -10,
         "bankroll": 37.76349273013174
+      },
+      {
+        "id": "0xec8e92d7421a02c7b7c39ee1a85c08386fd6f73a6db92df3b232018e060ef585:0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6:0x71b9be2e4558d3581e1023a0e0568a7a49fcca8c7f1ba1d1ca73fa1deb05e76f:1783095160",
+        "openedAt": "2026-07-03T16:12:40.000Z",
+        "title": "Will Australia vs. Egypt end in a draw?",
+        "outcome": "Yes",
+        "conditionId": "0x71b9be2e4558d3581e1023a0e0568a7a49fcca8c7f1ba1d1ca73fa1deb05e76f",
+        "outcomeIndex": 999,
+        "eventSlug": "",
+        "trader": "suntori",
+        "wallet": "0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6",
+        "streak": 50,
+        "hitRate": 1,
+        "entry": 0.339999986,
+        "stake": 10,
+        "curPrice": 0.9995,
+        "unrealizedPnl": 4.558824128892759,
+        "closedAt": "2026-07-03T20:38:37.367Z",
+        "win": true,
+        "pnl": 19.41176591695507,
+        "bankroll": 57.17525864708681
       }
     ],
     "seenTradeKeys": [
@@ -628,7 +632,27 @@
       "0x98e4076332ae155225dfbb368cc3ffb7f96ef4799aa1611b2fbe7dc503942ccc:0x87ec6cd961d326bd6caa54b8a2a194440522138f:0xf3a4ebc0e59aadc6c37a49f7e50c34233925d15868fbdef7a83c4da274e1dfb3:1783106300",
       "0x98e4076332ae155225dfbb368cc3ffb7f96ef4799aa1611b2fbe7dc503942ccc:0x1cdd071bb612de6d66d0c882b676c663697de595:0xf3a4ebc0e59aadc6c37a49f7e50c34233925d15868fbdef7a83c4da274e1dfb3:1783106300",
       "0x98e4076332ae155225dfbb368cc3ffb7f96ef4799aa1611b2fbe7dc503942ccc:0x95f51617e900f7d4df2894d77a73c1b2b269779f:0xf3a4ebc0e59aadc6c37a49f7e50c34233925d15868fbdef7a83c4da274e1dfb3:1783106300",
-      "0x98e4076332ae155225dfbb368cc3ffb7f96ef4799aa1611b2fbe7dc503942ccc:0x7fea691e28d169a33c500607279f2acb49058f74:0xf3a4ebc0e59aadc6c37a49f7e50c34233925d15868fbdef7a83c4da274e1dfb3:1783106300"
+      "0x98e4076332ae155225dfbb368cc3ffb7f96ef4799aa1611b2fbe7dc503942ccc:0x7fea691e28d169a33c500607279f2acb49058f74:0xf3a4ebc0e59aadc6c37a49f7e50c34233925d15868fbdef7a83c4da274e1dfb3:1783106300",
+      "0x21023b33956c86a7556ccb53ea73572fcfad211644f09af358714f398b5fea65:0x56cc7a163d7a56134a394b76abaa47c7bdcad589:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0x21023b33956c86a7556ccb53ea73572fcfad211644f09af358714f398b5fea65:0x37e053beabee77acc15e641dfe8e395b2b2d024e:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0xbe93add109ba77dfa5633e610cbb36680706926de910494a0a795e91f1248f0e:0x18de37ce1a1c0c96c96edfdc0b6a0b089185a0eb:0x826887e3ac134321e8137d47870b4efa84d0263b0864f21feb227c8e024d759e:1783110968",
+      "0xbe93add109ba77dfa5633e610cbb36680706926de910494a0a795e91f1248f0e:0xcf7379b4b891c06d88807f6f70efa75378120215:0x826887e3ac134321e8137d47870b4efa84d0263b0864f21feb227c8e024d759e:1783110968",
+      "0x00dcd4b32278432756ab0da9e42b5de5075fbf6f85cc30a525a655bcb1aaba64:0x0d64682e3b7c0c620496c0ad7ea83b45bb0cf6bf:0x6f062353f0d41ff7d4ceda7cf424c60eed845754b78c111317e72f917b3f1089:1783110968",
+      "0x00dcd4b32278432756ab0da9e42b5de5075fbf6f85cc30a525a655bcb1aaba64:0x8931aa50226eea3e626c961ccffcf176dcf3a90c:0x6f062353f0d41ff7d4ceda7cf424c60eed845754b78c111317e72f917b3f1089:1783110968",
+      "0x03ee65880acc89aee885d861e72f254840b895b99a89b6965d42972562d7d3df:0x83d9a38fbf2265d1a092499a964412dd44e810d9:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0x03ee65880acc89aee885d861e72f254840b895b99a89b6965d42972562d7d3df:0x37e053beabee77acc15e641dfe8e395b2b2d024e:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0x9db6cbf285058fef7719958297a319f8f38bbfcac908154b5fb64031f62e426c:0x0fce7c54120bfc84407035579f942a83290263d5:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0x9db6cbf285058fef7719958297a319f8f38bbfcac908154b5fb64031f62e426c:0x37e053beabee77acc15e641dfe8e395b2b2d024e:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0xe97e36e0f678f051c8c8e33dcd8e51abe0a6d7c539edc801148744277166aadd:0x204f72f35326db932158cba6adff0b9a1da95e14:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0xe97e36e0f678f051c8c8e33dcd8e51abe0a6d7c539edc801148744277166aadd:0x37e053beabee77acc15e641dfe8e395b2b2d024e:0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6:1783110968",
+      "0xbef36bc4d4a77d0e3b1b3043c14da1d8110ad794b8e14036f7db49f8ceb66454:0x0a3abd38023390355166da0aca609f29bceff9c8:0xfa021d817ad33e0fa28e04051b4fea25b0a090e94bb1b2a38b377bce9778eb8e:1783110967",
+      "0x2f386673dec431881c9716f3f3bae615f9e2514ad5d19c72f36c6795b034cb93:0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6:0x9ad06dd68a4075ba2ac99fc138f7c1506f236851233b0ec79a130a348af19a82:1783110967",
+      "0x986a6e1705c97d1247b8160601216c90b1b9434b592b8975a36a0c207977db84:0xe521ec4a9c0583d53968ffe2e884e7e5dff8880e:0x0ad867208540846e9cc09dc722daff9dfba753afc985e145c81edbb82fb500e5:1783110967",
+      "0x986a6e1705c97d1247b8160601216c90b1b9434b592b8975a36a0c207977db84:0x1e9884fc6934e2be1c6782eb83bc198b7c49e04e:0x0ad867208540846e9cc09dc722daff9dfba753afc985e145c81edbb82fb500e5:1783110967",
+      "0x986a6e1705c97d1247b8160601216c90b1b9434b592b8975a36a0c207977db84:0xeab5a0d6d5955b6a94093bbad6e925f3bfb5f570:0x0ad867208540846e9cc09dc722daff9dfba753afc985e145c81edbb82fb500e5:1783110967",
+      "0xd8f8345515cae1263a4e2cb51f76f937752e059a88de112ab8f5f3df5c405cd2:0x904ed7c7820a434ea9b11e7333ed69190d850bec:0xf26a1cc564cee2a613b5ef772816706092be4ead0f78b6f144bb82b7ce7c9327:1783110967",
+      "0xd8f8345515cae1263a4e2cb51f76f937752e059a88de112ab8f5f3df5c405cd2:0x945a49252f772a10c6ddd1d1e1e24ee20438a48c:0xf26a1cc564cee2a613b5ef772816706092be4ead0f78b6f144bb82b7ce7c9327:1783110967",
+      "0xaf2cc8fa2c996923837c2d0b292156a550c9380fb2da02f925bae3beb0d0e6e4:0x60d0c03a855035c9db38a28ff969dec37f4b03c1:0x9ad06dd68a4075ba2ac99fc138f7c1506f236851233b0ec79a130a348af19a82:1783110967"
     ],
     "endReason": null,
     "sustained": false
@@ -2141,7 +2165,127 @@
       "conditionId": "0xf3a4ebc0e59aadc6c37a49f7e50c34233925d15868fbdef7a83c4da274e1dfb3",
       "outcomeIndex": 999,
       "wallet": "0x7fea691e28d169a33c500607279f2acb49058f74"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x56cc7a163d7a56134a394b76abaa47c7bdcad589"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x37e053beabee77acc15e641dfe8e395b2b2d024e"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x826887e3ac134321e8137d47870b4efa84d0263b0864f21feb227c8e024d759e",
+      "outcomeIndex": 999,
+      "wallet": "0x18de37ce1a1c0c96c96edfdc0b6a0b089185a0eb"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x826887e3ac134321e8137d47870b4efa84d0263b0864f21feb227c8e024d759e",
+      "outcomeIndex": 999,
+      "wallet": "0xcf7379b4b891c06d88807f6f70efa75378120215"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x6f062353f0d41ff7d4ceda7cf424c60eed845754b78c111317e72f917b3f1089",
+      "outcomeIndex": 999,
+      "wallet": "0x0d64682e3b7c0c620496c0ad7ea83b45bb0cf6bf"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x6f062353f0d41ff7d4ceda7cf424c60eed845754b78c111317e72f917b3f1089",
+      "outcomeIndex": 999,
+      "wallet": "0x8931aa50226eea3e626c961ccffcf176dcf3a90c"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x83d9a38fbf2265d1a092499a964412dd44e810d9"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x37e053beabee77acc15e641dfe8e395b2b2d024e"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x0fce7c54120bfc84407035579f942a83290263d5"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x37e053beabee77acc15e641dfe8e395b2b2d024e"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x204f72f35326db932158cba6adff0b9a1da95e14"
+    },
+    {
+      "ts": 1783110968000,
+      "conditionId": "0x724fd3260cd6936e34b2d504e4c434a502baf5bbd6c80057ccdc79e210ccd2c6",
+      "outcomeIndex": 999,
+      "wallet": "0x37e053beabee77acc15e641dfe8e395b2b2d024e"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0xfa021d817ad33e0fa28e04051b4fea25b0a090e94bb1b2a38b377bce9778eb8e",
+      "outcomeIndex": 999,
+      "wallet": "0x0a3abd38023390355166da0aca609f29bceff9c8"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0x9ad06dd68a4075ba2ac99fc138f7c1506f236851233b0ec79a130a348af19a82",
+      "outcomeIndex": 999,
+      "wallet": "0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0x0ad867208540846e9cc09dc722daff9dfba753afc985e145c81edbb82fb500e5",
+      "outcomeIndex": 999,
+      "wallet": "0xe521ec4a9c0583d53968ffe2e884e7e5dff8880e"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0x0ad867208540846e9cc09dc722daff9dfba753afc985e145c81edbb82fb500e5",
+      "outcomeIndex": 999,
+      "wallet": "0x1e9884fc6934e2be1c6782eb83bc198b7c49e04e"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0x0ad867208540846e9cc09dc722daff9dfba753afc985e145c81edbb82fb500e5",
+      "outcomeIndex": 999,
+      "wallet": "0xeab5a0d6d5955b6a94093bbad6e925f3bfb5f570"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0xf26a1cc564cee2a613b5ef772816706092be4ead0f78b6f144bb82b7ce7c9327",
+      "outcomeIndex": 999,
+      "wallet": "0x904ed7c7820a434ea9b11e7333ed69190d850bec"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0xf26a1cc564cee2a613b5ef772816706092be4ead0f78b6f144bb82b7ce7c9327",
+      "outcomeIndex": 999,
+      "wallet": "0x945a49252f772a10c6ddd1d1e1e24ee20438a48c"
+    },
+    {
+      "ts": 1783110967000,
+      "conditionId": "0x9ad06dd68a4075ba2ac99fc138f7c1506f236851233b0ec79a130a348af19a82",
+      "outcomeIndex": 999,
+      "wallet": "0x60d0c03a855035c9db38a28ff969dec37f4b03c1"
     }
   ],
-  "lastHeartbeatNote": "4 new picks · 4 settled · PnL +$25.70"
+  "lastHeartbeatNote": "0 new picks · 1 settled · PnL +$41.42"
 }
