@@ -2,9 +2,14 @@ name: Deploy StreakScope
 
 on:
   push:
-    branches: [main, cursor/streakscope-app-0bb4]
+    branches: [main]
     paths:
       - "streakscope/**"
+      - ".github/workflows/deploy-streakscope.yml"
+  pull_request:
+    paths:
+      - "streakscope/**"
+      - ".github/workflows/deploy-streakscope.yml"
   workflow_dispatch:
 
 permissions:
@@ -13,7 +18,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: streakscope-pages
+  group: streakscope-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -34,11 +39,14 @@ jobs:
           npm ci
           npm run build
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: streakscope/dist
 
   deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
