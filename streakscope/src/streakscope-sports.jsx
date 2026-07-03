@@ -5,10 +5,10 @@ import { createLogger, clearGammaCache } from "./lib/api.js";
 import {
   discoverWalletSeeds,
   enrichTradersProgressive,
-  computeKpis,
   lookupWallet,
   enrichTrader,
   INITIAL_ENRICH,
+  buildGameBoard,
 } from "./lib/discovery.js";
 import { computeTraderStats } from "./lib/sports.js";
 import { useStreakerAlerts } from "./hooks/useStreakerAlerts.js";
@@ -16,6 +16,7 @@ import { ALERT_WINDOW_MS } from "./lib/alerts.js";
 
 const PAGES = [
   { id: "live", label: "Live" },
+  { id: "games", label: "Games" },
   { id: "streaks", label: "Streaks" },
   { id: "alerts", label: "Alerts" },
   { id: "search", label: "Search" },
@@ -42,10 +43,10 @@ function WLStrip({ last20 }) {
   );
 }
 
-function LiveBadge({ reducedMotion }) {
+function LiveBadge({ reducedMotion, small }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 10, fontWeight: 700, color: COLORS.live, fontFamily: "monospace" }}>
-      <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.live, animation: reducedMotion ? "none" : "pulse 1.4s ease-in-out infinite" }} />
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: small ? 9 : 10, fontWeight: 700, color: COLORS.live, fontFamily: "monospace" }}>
+      <span style={{ width: small ? 5 : 6, height: small ? 5 : 6, borderRadius: "50%", background: COLORS.live, animation: reducedMotion ? "none" : "pulse 1.4s ease-in-out infinite" }} />
       LIVE
     </span>
   );
@@ -173,6 +174,88 @@ function AlertCard({ alert, onDismiss, reducedMotion }) {
 
 // ─── pages ─────────────────────────────────────────────────
 
+function GamesPage({ games, expanded, onToggle, reducedMotion, loading, liveOnly, setLiveOnly }) {
+  const list = liveOnly ? games.filter((g) => g.live) : games;
+  const btn = (on, label, fn) => (
+    <button type="button" onClick={fn} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${on ? COLORS.live : COLORS.border}`, background: on ? "rgba(61,220,151,0.1)" : "transparent", color: on ? COLORS.live : COLORS.muted, fontSize: 12, cursor: "pointer" }}>
+      {label}
+    </button>
+  );
+
+  return (
+    <>
+      <PageHeader title="Games" desc={`${list.length} games · streakers' positions grouped by matchup`}>
+        {games.length > 0 && btn(liveOnly, "Live games only", () => setLiveOnly(!liveOnly))}
+      </PageHeader>
+      {loading && <Empty>Loading games…</Empty>}
+      {!loading && list.length === 0 && <Empty>No streaker positions on active games.</Empty>}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {list.map((g) => {
+          const open = expanded === g.eventKey;
+          const url = g.eventSlug ? `https://polymarket.com/event/${g.eventSlug}` : null;
+          return (
+            <div key={g.eventKey} style={{ background: COLORS.card, border: `1px solid ${g.live ? COLORS.live : COLORS.border}`, borderRadius: 10, overflow: "hidden" }}>
+              <button
+                type="button"
+                onClick={() => onToggle(open ? null : g.eventKey)}
+                style={{ width: "100%", display: "grid", gridTemplateColumns: "1fr auto", gap: 8, padding: "12px 14px", background: "transparent", border: "none", color: COLORS.text, cursor: "pointer", textAlign: "left" }}
+              >
+                <div>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+                    {g.live && <LiveBadge reducedMotion={reducedMotion} />}
+                    {url ? (
+                      <a href={url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ fontWeight: 600, fontSize: 14, color: COLORS.text, textDecoration: "none" }}>
+                        {g.title}
+                      </a>
+                    ) : (
+                      <span style={{ fontWeight: 600, fontSize: 14 }}>{g.title}</span>
+                    )}
+                  </div>
+                  <div style={{ marginTop: 4, fontSize: 11, color: COLORS.muted, fontFamily: "monospace" }}>
+                    {g.streakerCount} streakers · {g.positionCount} markets
+                    {g.gameStartTime && <> · {new Date(g.gameStartTime).toLocaleString()}</>}
+                  </div>
+                </div>
+                <span style={{ color: COLORS.muted, alignSelf: "center" }}>{open ? "▾" : "▸"}</span>
+              </button>
+              {open && (
+                <div style={{ borderTop: `1px solid ${COLORS.border}`, padding: "8px 12px 12px" }}>
+                  {g.positions.map((pos) => (
+                    <div key={pos.conditionId + pos.outcome} style={{ marginBottom: 12 }}>
+                      <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 6 }}>
+                        {pos.live && <LiveBadge reducedMotion={reducedMotion} small />}
+                        <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 4, background: "rgba(108,140,255,0.15)", color: COLORS.accent }}>{pos.outcome}</span>
+                        {pos.sportsMarketType && <span style={{ fontSize: 10, color: COLORS.muted }}>{pos.sportsMarketType}</span>}
+                      </div>
+                      {pos.polymarketUrl ? (
+                        <a href={pos.polymarketUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, fontWeight: 600, color: COLORS.text, textDecoration: "none" }}>{pos.title}</a>
+                      ) : (
+                        <div style={{ fontSize: 12, fontWeight: 600 }}>{pos.title}</div>
+                      )}
+                      <div style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 4 }}>
+                        {pos.traders.map((tr) => (
+                          <div key={tr.wallet} style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 8, fontSize: 11, fontFamily: "monospace", padding: "6px 8px", background: COLORS.bg, borderRadius: 6 }}>
+                            <a href={profileUrl(tr.wallet)} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.text, textDecoration: "none" }}>
+                              <span style={{ color: streakColor(tr.streak, COLORS), fontWeight: 700 }}>{tr.streak}W</span> {tr.name}
+                            </a>
+                            <span style={{ color: COLORS.muted, textAlign: "right" }}>
+                              {fmtPrice(tr.entry)} → {fmtPrice(tr.now)} · <span style={{ color: (tr.pnl ?? 0) >= 0 ? COLORS.win : COLORS.loss }}>{fmtUsd(tr.pnl)}</span>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
 function LivePage({ traders, expanded, onToggle, reducedMotion, loading }) {
   const live = traders.filter((t) => t.liveCount > 0).sort((a, b) => b.liveCount - a.liveCount);
   const liveBets = live.reduce((s, t) => s + t.liveCount, 0);
@@ -298,6 +381,7 @@ export default function StreakScopeSports() {
   const [expanded, setExpanded] = useState(null);
   const [ignoreFavorites, setIgnoreFavorites] = useState(true);
   const [winOnly, setWinOnly] = useState(false);
+  const [gamesLiveOnly, setGamesLiveOnly] = useState(false);
   const [diagOpen, setDiagOpen] = useState(false);
   const [diagnostics, setDiagnostics] = useState([]);
   const [scanProgress, setScanProgress] = useState("");
@@ -380,6 +464,9 @@ export default function StreakScopeSports() {
 
   const liveCount = traders.filter((t) => t.liveCount > 0).length;
 
+  const games = useMemo(() => buildGameBoard(traders), [traders]);
+  const liveGameCount = games.filter((g) => g.live).length;
+
   return (
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "system-ui, sans-serif", maxWidth: 720, margin: "0 auto" }}>
       <style>{`
@@ -406,7 +493,11 @@ export default function StreakScopeSports() {
         <nav style={{ display: "flex", gap: 0 }}>
           {PAGES.map((p) => {
             const active = page === p.id;
-            const badge = p.id === "alerts" && unread > 0 ? unread : p.id === "live" && liveCount > 0 ? liveCount : 0;
+            const badge =
+              p.id === "alerts" && unread > 0 ? unread
+              : p.id === "live" && liveCount > 0 ? liveCount
+              : p.id === "games" && liveGameCount > 0 ? liveGameCount
+              : 0;
             return (
               <button
                 key={p.id}
@@ -416,7 +507,7 @@ export default function StreakScopeSports() {
                   flex: 1, padding: "10px 4px", border: "none", background: "transparent",
                   borderBottom: active ? `2px solid ${COLORS.win}` : "2px solid transparent",
                   color: active ? COLORS.text : COLORS.muted,
-                  fontWeight: active ? 700 : 400, fontSize: 14, cursor: "pointer",
+                  fontWeight: active ? 700 : 400, fontSize: 13, cursor: "pointer",
                 }}
               >
                 {p.label}
@@ -434,6 +525,17 @@ export default function StreakScopeSports() {
       {/* page content */}
       <main style={{ padding: "16px 16px 72px" }}>
         {page === "live" && <LivePage traders={traders} expanded={expanded} onToggle={setExpanded} reducedMotion={reducedMotion} loading={loading} />}
+        {page === "games" && (
+          <GamesPage
+            games={games}
+            expanded={expanded}
+            onToggle={setExpanded}
+            reducedMotion={reducedMotion}
+            loading={loading}
+            liveOnly={gamesLiveOnly}
+            setLiveOnly={setGamesLiveOnly}
+          />
+        )}
         {page === "streaks" && (
           <StreaksPage
             traders={traders} expanded={expanded} onToggle={setExpanded} reducedMotion={reducedMotion} loading={loading}
