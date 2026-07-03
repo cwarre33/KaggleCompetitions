@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && mkdir -p dist/data && cp -r data/* dist/data/",
+    "heartbeat": "node scripts/sim-heartbeat.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },
