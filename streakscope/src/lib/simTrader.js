@@ -30,7 +30,7 @@ function betKey(p) {
   return `${p.conditionId}:${p.outcomeIndex ?? p.outcome}`;
 }
 
-function simPnl(stake, avgPrice, win) {
+export function simPnl(stake, avgPrice, win) {
   const price = Math.max(avgPrice, 0.01);
   if (win) return stake * ((1 - price) / price);
   return -stake;
@@ -78,6 +78,10 @@ function consensusCount(events, idx, windowMs = 14 * 86400000) {
     wallets.add(other.wallet);
   }
   return wallets.size;
+}
+
+export function evaluatePick(strategy, stats, price, consensus) {
+  return pickScore(strategy, stats, { avgPrice: price }, consensus);
 }
 
 function pickScore(strategy, stats, position, consensus) {
@@ -248,7 +252,7 @@ export function runSimLoop(traders, config = DEFAULT_SIM_CONFIG, ignoreFavorites
   return { trials, winner, finalStrategy: strategy };
 }
 
-function fmtStrategy(s) {
+export function fmtStrategy(s) {
   return [
     `gen ${s.generation}`,
     `mode=${s.pickMode}`,
@@ -329,6 +333,72 @@ export function formatSimMarkdown(result, config) {
     lines.push(`No sustained-profit strategy found in ${result.trials.length} trials. Last attempt:`);
     lines.push("");
     lines.push(fmtStrategy(result.finalStrategy));
+  }
+
+  return lines.join("\n");
+}
+
+export function trialMetrics(trial) {
+  const closed = trial.closedPicks || trial.picks || [];
+  const wins = closed.filter((p) => p.win).length;
+  const losses = closed.length - wins;
+  const realizedPnl = trial.realizedPnl ?? closed.reduce((s, p) => s + (p.pnl ?? 0), 0);
+  const unrealizedPnl = trial.unrealizedPnl ?? (trial.openPicks || []).reduce((s, p) => s + (p.unrealizedPnl ?? 0), 0);
+  const totalPnl = realizedPnl + unrealizedPnl;
+  const avgEntry = closed.length
+    ? closed.reduce((s, p) => s + (p.entry ?? 0), 0) / closed.length
+    : 0;
+
+  return {
+    bets: closed.length + (trial.openPicks?.length || 0),
+    closed: closed.length,
+    open: trial.openPicks?.length || 0,
+    wins,
+    losses,
+    winRate: closed.length ? wins / closed.length : 0,
+    realizedPnl,
+    unrealizedPnl,
+    totalPnl,
+    peak: trial.peak ?? 0,
+    avgEntry,
+    finalBankroll: totalPnl,
+  };
+}
+
+export function formatLiveStateMarkdown(state) {
+  const lines = [
+    "# StreakScope Sim Trader — Live Log",
+    "",
+    `Updated: ${state.updatedAt}`,
+    `Heartbeats: ${state.heartbeatCount}`,
+    `Stop loss: $${state.config.stopLossUsd} · Target: $${state.config.profitTargetUsd} · Stake: $${state.config.stakeUsd}`,
+    "",
+  ];
+
+  if (state.currentTrial?.status === "active") {
+    const t = state.currentTrial;
+    const m = trialMetrics(t);
+    lines.push(`## Active — Trial ${t.trialNum}`);
+    lines.push("");
+    lines.push(`**Strategy:** ${fmtStrategy(t.strategy)}`);
+    lines.push(`**PnL:** ${m.totalPnl >= 0 ? "+" : ""}$${m.totalPnl.toFixed(2)} (realized $${m.realizedPnl.toFixed(2)}, open $${m.unrealizedPnl.toFixed(2)})`);
+    lines.push(`**Record:** ${m.wins}W–${m.losses}L · ${m.open} open`);
+    lines.push("");
+  }
+
+  for (const trial of [...(state.archivedTrials || [])].reverse().slice(0, 12)) {
+    const m = trialMetrics(trial);
+    const label = trial.sustained ? "SUSTAINED" : trial.endReason === "stop_loss" ? "STOP LOSS" : "ENDED";
+    lines.push(`## Trial ${trial.trialNum} — ${label} (${m.totalPnl >= 0 ? "+" : ""}$${m.totalPnl.toFixed(2)})`);
+    lines.push("");
+    lines.push(fmtStrategy(trial.strategy));
+    lines.push(`${m.wins}W–${m.losses}L · ended ${trial.endedAt || "—"}`);
+    lines.push("");
+  }
+
+  if (state.winner) {
+    lines.push("---");
+    lines.push(`**Champion:** Trial ${state.winner.trialNum} — ${fmtStrategy(state.winner.strategy)}`);
   }
 
   return lines.join("\n");

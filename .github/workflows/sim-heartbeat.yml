@@ -1,0 +1,41 @@
+name: Sim Trader Heartbeat
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sim-heartbeat
+  cancel-in-progress: false
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: streakscope/package-lock.json
+
+      - name: Run sim heartbeat
+        working-directory: streakscope
+        run: |
+          npm ci
+          node scripts/sim-heartbeat.mjs
+
+      - name: Commit sim state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add streakscope/data/sim-state.json streakscope/data/sim-log.md
+          git diff --staged --quiet || git commit -m "Sim heartbeat: update live strategy state"
+          git push
