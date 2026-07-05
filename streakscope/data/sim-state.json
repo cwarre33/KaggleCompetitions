@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-05T01:24:30.059Z",
-  "heartbeatCount": 24,
-  "lastTradePollAt": "2026-07-05T01:24:30.059Z",
+  "updatedAt": "2026-07-05T05:37:13.033Z",
+  "heartbeatCount": 25,
+  "lastTradePollAt": "2026-07-05T05:37:13.033Z",
   "config": {
     "stopLossUsd": 50,
     "profitTargetUsd": 40,
@@ -28,7 +28,7 @@
     "startedAt": "2026-07-04T00:17:07.161Z",
     "endedAt": null,
     "realizedPnl": 31.433806540010288,
-    "unrealizedPnl": -43.13795685107189,
+    "unrealizedPnl": -43.03989387875977,
     "peak": 29.326561590883813,
     "openPicks": [
       {
@@ -249,8 +249,8 @@
         "hitRate": 1,
         "entry": 0.5899999708,
         "stake": 10,
-        "curPrice": 0.585,
-        "unrealizedPnl": -0.08474527199078352
+        "curPrice": 0.595,
+        "unrealizedPnl": 0.0847462618213406
       },
       {
         "id": "0x674a9479261428f553479dbc8e6d3c46aeb6e4f543f1c106a544321ec30e9f23:0x9703676286b93c2eca71ca96e8757104519a69c2:0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62:1783191988",
@@ -421,6 +421,23 @@
         "stake": 10,
         "curPrice": 0.475,
         "unrealizedPnl": 0.10638297872340274
+      },
+      {
+        "id": "0xfee6d84cb7101ecf983378d571705e31019efa847446da9001d8afe8f42937f1:0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6:0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62:1783229425",
+        "openedAt": "2026-07-05T05:30:25.000Z",
+        "title": "Brazil vs. Norway: Team to Advance",
+        "outcome": "Brazil",
+        "conditionId": "0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62",
+        "outcomeIndex": 999,
+        "eventSlug": "",
+        "trader": "suntori",
+        "wallet": "0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6",
+        "streak": 50,
+        "hitRate": 1,
+        "entry": 0.6999999993,
+        "stake": 10,
+        "curPrice": 0.695,
+        "unrealizedPnl": -0.07142856150000121
       }
     ],
     "closedPicks": [
@@ -1188,7 +1205,14 @@
       "0xa939f59e91d200e69df97ae48b33373aa856d1b25efebb3db56bccd5ad3a5bdc:0x8404bab8e71914ddef3f63827c3a5460d544ea03:0x3d77afacb8e48519fcee67b289dfd994bc2287eb7c19268612c759056f329c44:1783214447",
       "0xa939f59e91d200e69df97ae48b33373aa856d1b25efebb3db56bccd5ad3a5bdc:0x1cba5593c7f29eca329a4749e447a81b4ec1b694:0x3d77afacb8e48519fcee67b289dfd994bc2287eb7c19268612c759056f329c44:1783214447",
       "0x68a2e176bad5f711dfb6165aa45e44661299accf59091ef3dd310119e0336960:0x409dc5b12cfc6549a614bed85f4550f86b358f47:0x32653890c9d985d16183bbf58d2e4db534209151f7fec1f592e3bae874b8aaa0:1783214447",
-      "0x68a2e176bad5f711dfb6165aa45e44661299accf59091ef3dd310119e0336960:0x6d3c5bd13984b2de47c3a88ddc455309aab3d294:0x32653890c9d985d16183bbf58d2e4db534209151f7fec1f592e3bae874b8aaa0:1783214447"
+      "0x68a2e176bad5f711dfb6165aa45e44661299accf59091ef3dd310119e0336960:0x6d3c5bd13984b2de47c3a88ddc455309aab3d294:0x32653890c9d985d16183bbf58d2e4db534209151f7fec1f592e3bae874b8aaa0:1783214447",
+      "0xfee6d84cb7101ecf983378d571705e31019efa847446da9001d8afe8f42937f1:0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6:0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62:1783229425",
+      "0xfee6d84cb7101ecf983378d571705e31019efa847446da9001d8afe8f42937f1:0xcf7379b4b891c06d88807f6f70efa75378120215:0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62:1783229425",
+      "0x2d6be16d693bac669416cd341633527ac2ced371f721f1a034344e7934608add:0x74d8f4721b45a70e411f63e8b4cc1fdfa14e89f8:0xc72ed30b70492a1016d6eb24342324cb37e41eef229b81320217658a81f5a3bb:1783229425",
+      "0xddd86963d6e7ddffc6328ea81b75ac702d801c38d715682a8ed0e4bc914cf233:0x23ecffc9a10a0a74b9150fc1dc9dbb6c88cc66d1:0x84ceac327b0b2a76ced4315420c9f1ad695512b456c6ee565f134fc82384ffc3:1783229423",
+      "0xddd86963d6e7ddffc6328ea81b75ac702d801c38d715682a8ed0e4bc914cf233:0x521070c99db06e54af5e8e4a91d6858decdfbd53:0x84ceac327b0b2a76ced4315420c9f1ad695512b456c6ee565f134fc82384ffc3:1783229423",
+      "0x9a2be101a95c6147d86c76e8eec1b4f403a120e0466c2c5d556bc8cd1f0a0658:0xf213b5453157e51a83d2efa802bb1b55e4e6a627:0xc9b3f3832e6b41800122e6e28567d3b8553f1fe217520570f8e4407bcd38180e:1783229423",
+      "0x9a2be101a95c6147d86c76e8eec1b4f403a120e0466c2c5d556bc8cd1f0a0658:0x893575c7d99542163c6b6e8a0fe5af0b6d217daa:0xc9b3f3832e6b41800122e6e28567d3b8553f1fe217520570f8e4407bcd38180e:1783229423"
     ],
     "endReason": null,
     "sustained": false
@@ -3466,186 +3490,6 @@
     ]
   },
   "recentConsensus": [
-    {
-      "ts": 1783138133000,
-      "conditionId": "0xe52d6ea7e8826737488feb601d1e1fb0539b02581abad4807809562b00c897a0",
-      "outcomeIndex": 999,
-      "wallet": "0x83d9a38fbf2265d1a092499a964412dd44e810d9"
-    },
-    {
-      "ts": 1783138133000,
-      "conditionId": "0xe52d6ea7e8826737488feb601d1e1fb0539b02581abad4807809562b00c897a0",
-      "outcomeIndex": 999,
-      "wallet": "0xca02a61361a1ec7aba35629ef061d712067e76d3"
-    },
-    {
-      "ts": 1783138133000,
-      "conditionId": "0xe52d6ea7e8826737488feb601d1e1fb0539b02581abad4807809562b00c897a0",
-      "outcomeIndex": 999,
-      "wallet": "0x0fce7c54120bfc84407035579f942a83290263d5"
-    },
-    {
-      "ts": 1783138133000,
-      "conditionId": "0xe52d6ea7e8826737488feb601d1e1fb0539b02581abad4807809562b00c897a0",
-      "outcomeIndex": 999,
-      "wallet": "0xca02a61361a1ec7aba35629ef061d712067e76d3"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 0,
-      "wallet": "0x83d9a38fbf2265d1a092499a964412dd44e810d9"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 1,
-      "wallet": "0x65b57f3444e1dba0487c65d2618d3b0c0e0baa71"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xb0565ea0cfcb589eb4a2cc3424b2e191e8f75f43872d59cb160fb30f9e82a60c",
-      "outcomeIndex": 0,
-      "wallet": "0x2cfe7302d69d3eaec0b39a0da170c20740b0e4de"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xb0565ea0cfcb589eb4a2cc3424b2e191e8f75f43872d59cb160fb30f9e82a60c",
-      "outcomeIndex": 1,
-      "wallet": "0xc4dbd5631f003f3f7d10bc31338b1fe5c6ff7e0c"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x1de3d13c0af2999ec0db002e1105dade4db54c5828b78521ba1a6b6eab588740",
-      "outcomeIndex": 1,
-      "wallet": "0x2176d14bea8163dc6d0548d792b1f79d1df7bc30"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x1de3d13c0af2999ec0db002e1105dade4db54c5828b78521ba1a6b6eab588740",
-      "outcomeIndex": 0,
-      "wallet": "0x71389d69bb86385f122e18bb427578f1d70e8c89"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 0,
-      "wallet": "0x204f72f35326db932158cba6adff0b9a1da95e14"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 1,
-      "wallet": "0x65b57f3444e1dba0487c65d2618d3b0c0e0baa71"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xf217f68096adf76939c46acac4bb8857e517d42b2a83027099751c89b9d64d3a",
-      "outcomeIndex": 0,
-      "wallet": "0x7bea0e73d5a0bb331d843c739c6e74fa4750a4a9"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xf217f68096adf76939c46acac4bb8857e517d42b2a83027099751c89b9d64d3a",
-      "outcomeIndex": 1,
-      "wallet": "0x37e053beabee77acc15e641dfe8e395b2b2d024e"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x4d7eeb6b14f64cc6b847a5fea348e78f54a7ebbbf3a8e0df2141c916cc4ee3d3",
-      "outcomeIndex": 1,
-      "wallet": "0xf05d148f8eca35614b64b59d7f2eb00332c10ca6"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x4d7eeb6b14f64cc6b847a5fea348e78f54a7ebbbf3a8e0df2141c916cc4ee3d3",
-      "outcomeIndex": 0,
-      "wallet": "0x43e98f912cd6ddadaad88d3297e78c0648e688e5"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x68210f2621cee6f4fe7ab09cd5e721c0e1428c3914557b08bb26a68508cae680",
-      "outcomeIndex": 0,
-      "wallet": "0x032eb1bc893940263ad0b01889f262fc232f2a9e"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x68210f2621cee6f4fe7ab09cd5e721c0e1428c3914557b08bb26a68508cae680",
-      "outcomeIndex": 1,
-      "wallet": "0x204f72f35326db932158cba6adff0b9a1da95e14"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 0,
-      "wallet": "0x0fce7c54120bfc84407035579f942a83290263d5"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 1,
-      "wallet": "0x65b57f3444e1dba0487c65d2618d3b0c0e0baa71"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x1de3d13c0af2999ec0db002e1105dade4db54c5828b78521ba1a6b6eab588740",
-      "outcomeIndex": 1,
-      "wallet": "0x8ad6a4dccae10a0c296d051b814a6000a057eed6"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0x1de3d13c0af2999ec0db002e1105dade4db54c5828b78521ba1a6b6eab588740",
-      "outcomeIndex": 0,
-      "wallet": "0x71389d69bb86385f122e18bb427578f1d70e8c89"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xa947b7c696453a288460a8e12aae31b854ca02d0b87970ffc259cec8a9fffcd2",
-      "outcomeIndex": 0,
-      "wallet": "0x84cfffc3f16dcc353094de30d4a45226eccd2f63"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xa947b7c696453a288460a8e12aae31b854ca02d0b87970ffc259cec8a9fffcd2",
-      "outcomeIndex": 1,
-      "wallet": "0x580d9dcca035b1de4155be73c1804aef74ebeb6d"
-    },
-    {
-      "ts": 1783138132000,
-      "conditionId": "0xd8bc43527e521773004e80a8d08c9e0356f1bf757e4b8a925caac68cc8f5eb3b",
-      "outcomeIndex": 0,
-      "wallet": "0x8ad6a4dccae10a0c296d051b814a6000a057eed6"
-    },
-    {
-      "ts": 1783149197000,
-      "conditionId": "0xd073c61a6f49a9b3b2985f65e457fdacd2e6c2566e138226fe673cacd8f0f551",
-      "outcomeIndex": 999,
-      "wallet": "0xddb6e6246546230503f153506ac1e9914978b9b3"
-    },
-    {
-      "ts": 1783149197000,
-      "conditionId": "0xd073c61a6f49a9b3b2985f65e457fdacd2e6c2566e138226fe673cacd8f0f551",
-      "outcomeIndex": 999,
-      "wallet": "0x51dbdd2b19427dc8e88bb15a4046a38d8427f9b3"
-    },
-    {
-      "ts": 1783149197000,
-      "conditionId": "0x2abc2ca23b04c1d8e170b33f1de93937eec740bf5b3e9309e250f3562f1a166b",
-      "outcomeIndex": 999,
-      "wallet": "0x255c1b6520a89eca234d8605165520d23c8516df"
-    },
-    {
-      "ts": 1783149197000,
-      "conditionId": "0x2abc2ca23b04c1d8e170b33f1de93937eec740bf5b3e9309e250f3562f1a166b",
-      "outcomeIndex": 999,
-      "wallet": "0x6161740411c079f743470d678ade504d610f8ad9"
-    },
-    {
-      "ts": 1783149197000,
-      "conditionId": "0x4e2caf3a8f8869900aa3b7a8d3755c7900d1ed5b0f8c539a9e9b10d36520c078",
-      "outcomeIndex": 999,
-      "wallet": "0xa9494d978c6ad3b3e8c32c3aedd8c885b0fc7f5b"
-    },
     {
       "ts": 1783149197000,
       "conditionId": "0x4e2caf3a8f8869900aa3b7a8d3755c7900d1ed5b0f8c539a9e9b10d36520c078",
@@ -6645,7 +6489,49 @@
       "conditionId": "0x32653890c9d985d16183bbf58d2e4db534209151f7fec1f592e3bae874b8aaa0",
       "outcomeIndex": 0,
       "wallet": "0x6d3c5bd13984b2de47c3a88ddc455309aab3d294"
+    },
+    {
+      "ts": 1783229425000,
+      "conditionId": "0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62",
+      "outcomeIndex": 999,
+      "wallet": "0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6"
+    },
+    {
+      "ts": 1783229425000,
+      "conditionId": "0xad9e90bf3ccd05f9c3d4a25f49109d5f860225c26faec54b52edec93c4ba4e62",
+      "outcomeIndex": 999,
+      "wallet": "0xcf7379b4b891c06d88807f6f70efa75378120215"
+    },
+    {
+      "ts": 1783229425000,
+      "conditionId": "0xc72ed30b70492a1016d6eb24342324cb37e41eef229b81320217658a81f5a3bb",
+      "outcomeIndex": 999,
+      "wallet": "0x74d8f4721b45a70e411f63e8b4cc1fdfa14e89f8"
+    },
+    {
+      "ts": 1783229423000,
+      "conditionId": "0x84ceac327b0b2a76ced4315420c9f1ad695512b456c6ee565f134fc82384ffc3",
+      "outcomeIndex": 1,
+      "wallet": "0x23ecffc9a10a0a74b9150fc1dc9dbb6c88cc66d1"
+    },
+    {
+      "ts": 1783229423000,
+      "conditionId": "0x84ceac327b0b2a76ced4315420c9f1ad695512b456c6ee565f134fc82384ffc3",
+      "outcomeIndex": 0,
+      "wallet": "0x521070c99db06e54af5e8e4a91d6858decdfbd53"
+    },
+    {
+      "ts": 1783229423000,
+      "conditionId": "0xc9b3f3832e6b41800122e6e28567d3b8553f1fe217520570f8e4407bcd38180e",
+      "outcomeIndex": 0,
+      "wallet": "0xf213b5453157e51a83d2efa802bb1b55e4e6a627"
+    },
+    {
+      "ts": 1783229423000,
+      "conditionId": "0xc9b3f3832e6b41800122e6e28567d3b8553f1fe217520570f8e4407bcd38180e",
+      "outcomeIndex": 1,
+      "wallet": "0x893575c7d99542163c6b6e8a0fe5af0b6d217daa"
     }
   ],
-  "lastHeartbeatNote": "3 new picks · 0 settled · PnL $-11.70"
+  "lastHeartbeatNote": "1 new picks · 0 settled · PnL $-11.61"
 }
