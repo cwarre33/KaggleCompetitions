@@ -1,13 +1,13 @@
 # StreakScope Sim Trader — Live Log
 
-Updated: 2026-07-07T23:39:56.427Z
-Heartbeats: 55
+Updated: 2026-07-08T01:11:53.687Z
+Heartbeats: 56
 Stop loss: $50 · Target: $40 · Stake: $10
 
 ## Active — Trial 4
 
 **Strategy:** gen 1 · mode=top_streak · streak≥3 · hit≥52% · entry 20–72¢ · solo ok · $10/bet
-**PnL:** $-6.66 (realized $21.27, open $-27.92)
+**PnL:** +$3.18 (realized $21.27, open $-18.09)
 **Record:** 2W–0L · 16 open
 
 ## Trial 3 — SUSTAINED (+$200.62)
