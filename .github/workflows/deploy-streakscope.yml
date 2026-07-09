@@ -6,12 +6,10 @@ on:
     paths:
       - "streakscope/**"
       - ".github/workflows/deploy-streakscope.yml"
-      - ".github/workflows/sim-heartbeat.yml"
   pull_request:
     paths:
       - "streakscope/**"
       - ".github/workflows/deploy-streakscope.yml"
-      - ".github/workflows/sim-heartbeat.yml"
   workflow_dispatch:
 
 permissions:

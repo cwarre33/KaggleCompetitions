@@ -401,7 +401,7 @@ function SimPage({ simLoading, simError, state, logMd, onRefresh }) {
     <>
       <PageHeader
         title="Sim Trader"
-        desc="GitHub Actions heartbeat follows live streaker trades, paper-bets, and rotates strategies on stop-loss."
+        desc="Paper-trading sim (automation paused). Shows last saved strategy state from the repo."
       />
       {simLoading && <Empty>Loading sim feed…</Empty>}
       {simError && !state && <Empty>Sim feed unavailable — {simError}</Empty>}
